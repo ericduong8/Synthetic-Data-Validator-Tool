@@ -47,11 +47,8 @@ pip install -e .
 
 ### Basic Validation
 ```bash
-# Validate single file (recommended - convenient command)
+# Validate a single file
 data-validator validate sample_data/valid_example.csv
-
-# Alternative: Module execution
-python -m data_validator validate sample_data/invalid_example.csv
 
 # Validate multiple files
 data-validator validate sample_data/valid_example.csv sample_data/invalid_example.csv
@@ -62,28 +59,26 @@ data-validator validate sample_data/valid_example.csv sample_data/invalid_exampl
 # Verbose output with detailed error breakdown
 data-validator validate sample_data/invalid_example.csv --verbose
 
-# Export detailed report to JSON
+# Export detailed report to a JSON file
 data-validator validate sample_data/invalid_example.csv --json-output report.json
 
-# Use custom schema for JSON validation
-data-validator validate data.json --schema custom_schema.json
 ```
 
 ### Example Output
 
-**Valid dataset (with 1 statistical outlier in 100 entries):**
+**Valid dataset :**
 ```
 $ data-validator validate sample_data/valid_example.csv
 Validating 1 file(s)...
 ==================================================
 
 File: sample_data/valid_example.csv
-Status: FAIL
-Summary: 0 missing, 1 outlier(s), 0 type error(s)
+Status: PASS
+Summary: 0 missing, 0 outlier(s), 0 type error(s)
 
 ==================================================
-Validation Summary: 0/1 files passed
-✗ 1 file(s) failed validation
+Validation Summary: 1/1 files passed
+✓ All files passed validation!
 ```
 
 **Invalid dataset with verbose output:**
@@ -123,15 +118,6 @@ The repository includes comprehensive sample data files for testing:
 - **`sample_data/valid_example.csv`**: 100 entries with 12 health attributes (age, cholesterol, blood_sugar, blood_pressure, heart_rate, BMI, temperature, hemoglobin, WBC count, sample_date). Contains 1 statistical outlier which is expected in larger datasets.
 - **`sample_data/invalid_example.csv`**: 100 entries with 32+ intentional validation issues including missing values, out-of-range values, mixed data types, and invalid date formats.
 
-### Quick Test Commands
-```bash
-# Test with valid dataset (expect 1 statistical outlier)
-data-validator validate sample_data/valid_example.csv
-
-# Test with invalid dataset (expect multiple validation issues)
-data-validator validate sample_data/invalid_example.csv --verbose
-```
-
 ## Genomics and Health Data Use Cases
 
 This tool is specifically designed for quality control in:
@@ -142,7 +128,7 @@ This tool is specifically designed for quality control in:
 - **Research Datasets**: Validate experimental data before analysis
 - **Data Integration**: Check consistency when merging datasets from multiple sources
 
-## API Usage
+<!-- ## API Usage
 
 ```python
 from data_validator.validators import validate_file
@@ -159,9 +145,9 @@ schema = {
     'field_ranges': {'expression': (0, float('inf'))}
 }
 result = validate_file('data.json', schema=schema)
-```
+``` -->
 
-## Testing
+<!-- ## Testing
 
 Run the comprehensive test suite:
 
@@ -174,9 +160,9 @@ python -m pytest tests/ -v
 
 # Run specific test categories
 python -m pytest tests/test_validators.py::TestValidators::test_sample_data_files -v
-```
+``` -->
 
-## Contributing
+<!-- ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -186,4 +172,4 @@ python -m pytest tests/test_validators.py::TestValidators::test_sample_data_file
 
 ## License
 
-This project is designed for genomics and data pipeline quality control applications.
+This project is designed for genomics and data pipeline quality control applications. -->
