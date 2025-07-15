@@ -47,55 +47,90 @@ pip install -e .
 
 ### Basic Validation
 ```bash
-# Validate single file
-python -m src.data_validator.cli validate data.csv
+# Validate single file (recommended - convenient command)
+data-validator validate sample_data/valid_example.csv
+
+# Alternative: Module execution
+python -m data_validator validate sample_data/invalid_example.csv
 
 # Validate multiple files
-python -m src.data_validator.cli validate file1.csv file2.json file3.csv
+data-validator validate sample_data/valid_example.csv sample_data/invalid_example.csv
 ```
 
 ### Advanced Options
 ```bash
 # Verbose output with detailed error breakdown
-python -m src.data_validator.cli validate data.csv --verbose
+data-validator validate sample_data/invalid_example.csv --verbose
 
 # Export detailed report to JSON
-python -m src.data_validator.cli validate data.csv --json-output report.json
+data-validator validate sample_data/invalid_example.csv --json-output report.json
 
 # Use custom schema for JSON validation
-python -m src.data_validator.cli validate data.json --schema custom_schema.json
+data-validator validate data.json --schema custom_schema.json
 ```
 
 ### Example Output
+
+**Valid dataset (with 1 statistical outlier in 100 entries):**
 ```
-Validating 2 file(s)...
+$ data-validator validate sample_data/valid_example.csv
+Validating 1 file(s)...
 ==================================================
 
 File: sample_data/valid_example.csv
-Status: PASS
-Summary: 0 missing, 0 outlier(s), 0 type error(s)
+Status: FAIL
+Summary: 0 missing, 1 outlier(s), 0 type error(s)
+
+==================================================
+Validation Summary: 0/1 files passed
+✗ 1 file(s) failed validation
+```
+
+**Invalid dataset with verbose output:**
+```
+$ data-validator validate sample_data/invalid_example.csv --verbose
+Validating 1 file(s)...
+==================================================
 
 File: sample_data/invalid_example.csv
 Status: FAIL
-Summary: 1 missing, 1 outlier(s), 1 type error(s)
+Summary: 4 missing, 6 outlier(s), 2 type error(s)
   Missing values:
-    - age: 1 missing values
+    - age: 2 missing values
+    - blood_sugar: 3 missing values
+    - heart_rate: 2 missing values
+    - hemoglobin: 3 missing values
   Outliers/Range violations:
-    - age_domain_range: 1 outlier(s)
+    - age_domain_range: 5 outlier(s)
+    - cholesterol_domain_range: 7 outlier(s)
+    - blood_sugar_statistical: 2 outlier(s)
+    - systolic_bp_statistical: 3 outlier(s)
+    - diastolic_bp_statistical: 3 outlier(s)
+    - temperature_domain_range: 2 outlier(s)
   Data type errors:
-    - cholesterol: Mixed types: 1 numeric, 2 non-numeric
+    - heart_rate: Mixed types: 97 numeric, 1 non-numeric
+    - sample_date_date_format: 2 invalid date formats
 
 ==================================================
-Validation Summary: 1/2 files passed
+Validation Summary: 0/1 files passed
 ✗ 1 file(s) failed validation
 ```
 
 ## Sample Data
 
-The repository includes sample data files for testing:
+The repository includes comprehensive sample data files for testing:
 
-- `sample_data/valid_example.csv`: Clean dataset that passes all validation checks
-- `sample_data/invalid_example.csv`: Dataset with intentional issues for testing validation detection
+- **`sample_data/valid_example.csv`**: 100 entries with 12 health attributes (age, cholesterol, blood_sugar, blood_pressure, heart_rate, BMI, temperature, hemoglobin, WBC count, sample_date). Contains 1 statistical outlier which is expected in larger datasets.
+- **`sample_data/invalid_example.csv`**: 100 entries with 32+ intentional validation issues including missing values, out-of-range values, mixed data types, and invalid date formats.
+
+### Quick Test Commands
+```bash
+# Test with valid dataset (expect 1 statistical outlier)
+data-validator validate sample_data/valid_example.csv
+
+# Test with invalid dataset (expect multiple validation issues)
+data-validator validate sample_data/invalid_example.csv --verbose
+```
 
 ## Genomics and Health Data Use Cases
 
