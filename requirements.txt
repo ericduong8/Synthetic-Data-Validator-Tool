@@ -1,0 +1,8 @@
+click
+pandas
+jsonschema
+pytest
+pytest-cov
+rich
+black
+flake8

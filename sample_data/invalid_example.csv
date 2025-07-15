@@ -1,0 +1,4 @@
+id,age,cholesterol
+1,,185
+2,130,220     # age out of expected human range
+3,50,2e3      # wrong format for cholesterol
