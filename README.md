@@ -6,15 +6,13 @@ A comprehensive command-line tool for validating structured datasets used in gen
 
 The Synthetic Data Validator checks datasets for four critical validation types:
 
-### 1. Missing Values Detection
-- Identifies null, empty, or missing values in required fields
-- Reports count and location of missing data points
-- Essential for ensuring data completeness in genomics pipelines
+### 1. Detects Missing Values
+- Identifies null and missing values in required fields
+- Reports the count and location of missing data points
 
 ### 2. Data Type Validation
-- Detects mixed data types within columns (e.g., strings where numbers are expected)
+- Detects mixed data types within columns (for example strings where numbers are expected)
 - Validates date formats and scientific notation
-- Identifies type coercion issues that could cause pipeline failures
 
 ### 3. Out-of-Range Value Detection
 - **Statistical Outliers**: Uses IQR method to detect statistical anomalies
@@ -29,7 +27,6 @@ The Synthetic Data Validator checks datasets for four critical validation types:
 ### 4. Format Consistency Validation
 - **CSV Files**: Ensures consistent data types and formats across rows
 - **JSON Files**: Schema validation with required fields, type checking, and nested structure consistency
-- Validates against configurable schemas for custom data formats
 
 ## Installation
 
