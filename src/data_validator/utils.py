@@ -12,7 +12,7 @@ def report_missing(df: pd.DataFrame) -> list:
             missing.append((col, int(null_count)))
     return missing
 
-def report_outliers(df: pd.DataFrame, domain_ranges: Optional[Dict[str, Tuple[float, float]]] = None) -> list:
+def report_outliers(df: pd.DataFrame, domain_ranges: Optional[Dict[str, Tuple[float, float]]] = None, iqr_multiplier: float = 2.5) -> list:
     out = []
     
     default_ranges = {
@@ -43,7 +43,7 @@ def report_outliers(df: pd.DataFrame, domain_ranges: Optional[Dict[str, Tuple[fl
             q1, q3 = np.percentile(series, [25, 75])
             iqr = q3 - q1
             if iqr > 0:  # Avoid division by zero
-                lower, upper = q1 - 1.5 * iqr, q3 + 1.5 * iqr
+                lower, upper = q1 - iqr_multiplier * iqr, q3 + iqr_multiplier * iqr
                 mask = (series < lower) | (series > upper)
                 statistical_outliers = int(mask.sum())
                 if statistical_outliers > 0 and domain_violations == 0:  # Don't double-count
