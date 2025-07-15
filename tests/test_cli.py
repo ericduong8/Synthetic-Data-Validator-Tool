@@ -12,4 +12,4 @@ def test_report_outliers():
     df = pd.DataFrame({"x":[1,2,3,100]})
     out = dict(report_outliers(df))
     # 100 is an outlier
-    assert out["x"] == 1
+    assert out["x_statistical"] == 1
