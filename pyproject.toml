@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthetic-data-validator"
+version = "1.0.0"
+description = "A command-line tool for validating structured datasets in genomics and data-intensive pipelines"
+readme = "README.md"
+authors = [
+    {name = "Eric Duong", email = "duongmeric@gmail.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "click",
+    "pandas",
+    "jsonschema",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "rich",
+    "black",
+    "flake8",
+]
+
+[project.scripts]
+data-validator = "data_validator.cli:cli"
+
+[project.urls]
+Homepage = "https://github.com/ericduong8/Synthetic-Data-Validator-Tool"
+Repository = "https://github.com/ericduong8/Synthetic-Data-Validator-Tool"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
